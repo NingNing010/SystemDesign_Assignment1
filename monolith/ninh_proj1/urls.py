@@ -18,15 +18,19 @@ from django.contrib import admin
 from django.urls import path
 from books.views import book_list
 from cart.views import view_cart, add_to_cart
+# Thêm dòng này:
+from accounts.views import register_view, login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-    # Trang chủ là danh sách sách
-    path('', book_list, name='home'), 
+    path('', book_list, name='home'),
     path('books/', book_list, name='book_list'),
     
-    # URL cho giỏ hàng
     path('cart/', view_cart, name='view_cart'),
     path('cart/add/<int:book_id>/', add_to_cart, name='add_to_cart'),
+
+    # Thêm 3 đường dẫn này:
+    path('register/', register_view, name='register'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]
