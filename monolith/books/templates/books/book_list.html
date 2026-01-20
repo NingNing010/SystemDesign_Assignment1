@@ -1,0 +1,35 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Sách Nổi Bật</h1>
+    <p class="text-muted">Chọn ngay cuốn sách yêu thích của bạn</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for book in books %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                <h3 class="fw-bold">{{ book.title|slice:":1" }}</h3>
+            </div>
+            
+            <div class="card-body">
+                <h5 class="card-title text-primary">{{ book.title }}</h5>
+                <p class="card-text text-muted">Tác giả: {{ book.author }}</p>
+                <h4 class="text-danger fw-bold">{{ book.price }} đ</h4>
+                <p class="small text-success"><i class="fas fa-check-circle"></i> Còn hàng: {{ book.stock }}</p>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+                <form action="/cart/add/{{ book.id }}/" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
